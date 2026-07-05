@@ -250,6 +250,15 @@
                 </div>
                 <p id="scanning-log" class="text-sm text-slate-500 font-mono">Chuẩn bị dữ liệu...</p>
             </div>
+            
+            <!-- Characteristics Board -->
+            <div id="characteristics-board" class="hidden w-full max-w-3xl mt-8 flex flex-col items-center bg-white p-8 rounded-2xl shadow-lg border-4 border-blue-200">
+                <h3 class="font-bold text-blue-700 mb-6 text-2xl">Đặc điểm của mèo đã được ghi nhận:</h3>
+                <div id="characteristics-list" class="w-full text-left font-medium text-lg text-slate-700 space-y-3 min-h-[350px]">
+                    <!-- Traits will be typed here -->
+                </div>
+                <button id="btn-to-phase-2" onclick="goToScreen('operation-screen')" class="hidden btn-primary px-8 py-3 text-xl mt-6 animate-slide-in">Tiếp tục ➔</button>
+            </div>
         </div>
 
         <!-- 3. Operation Screen (Pokemon RPG Indoor) -->
@@ -261,12 +270,12 @@
                 <div id="rpg-scanner" class="absolute top-[38%] left-[78%] w-24 h-24 transform -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-blue-400 opacity-50 hidden z-20 shadow-[0_0_20px_#60a5fa]"></div>
                 
                 <!-- Food Stream (Falling) -->
-                <div id="food-stream" class="absolute top-[26%] left-[78%] w-4 h-16 transform -translate-x-1/2 hidden z-10 overflow-hidden">
+                <div id="food-stream" class="absolute top-[30%] left-[78%] w-4 h-16 transform -translate-x-1/2 hidden z-10 overflow-hidden">
                     <div class="w-full h-[200%] bg-gradient-to-b from-transparent via-amber-600 to-amber-900 animate-[fall-down_0.3s_linear_infinite]" style="background-size: 100% 50%;"></div>
                 </div>
 
                 <!-- Kibble inside the bowl -->
-                <div id="food-kibble" class="absolute top-[35%] left-[78%] w-10 h-10 transform -translate-x-1/2 -translate-y-1/2 hidden z-20">
+                <div id="food-kibble" class="absolute top-[42%] left-[78%] w-10 h-10 transform -translate-x-1/2 -translate-y-1/2 hidden z-20">
                     <div class="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-4 bg-amber-800 rounded-t-full border-t-2 border-amber-900 overflow-hidden shadow-lg">
                         <div class="w-1.5 h-1.5 bg-amber-700 rounded-full absolute top-1 left-1"></div>
                         <div class="w-1.5 h-1.5 bg-amber-900 rounded-full absolute top-1 right-1"></div>
@@ -659,8 +668,53 @@
                 document.getElementById('machine-eye').setAttribute('fill', '#10b981');
                 
                 setTimeout(() => {
-                    goToScreen('operation-screen');
-                }, 2000);
+                    document.getElementById('scanning-ui-container').classList.add('hidden');
+                    const board = document.getElementById('characteristics-board');
+                    board.classList.remove('hidden');
+                    
+                    const traits = [
+                        "Đặc điểm 1: Có tai nhọn",
+                        "Đặc điểm 2: Có lông",
+                        "Đặc điểm 3: Có móng vuốt",
+                        "Đặc điểm 4: Có ria mép dài",
+                        "Đặc điểm 5: Mắt có đồng tử co giãn linh hoạt",
+                        "Đặc điểm 6: Dáng đi uyển chuyển, nhẹ nhàng"
+                    ];
+                    
+                    const listContainer = document.getElementById('characteristics-list');
+                    listContainer.innerHTML = '';
+                    let currentTrait = 0;
+                    
+                    function typeWriter(text, element, speed, callback) {
+                        let i = 0;
+                        function type() {
+                            if (i < text.length) {
+                                element.textContent += text.charAt(i);
+                                i++;
+                                if(i % 3 === 0) SoundManager.scan(); // use scan sound for typing
+                                setTimeout(type, speed);
+                            } else {
+                                if(callback) setTimeout(callback, 400);
+                            }
+                        }
+                        type();
+                    }
+                    
+                    function showNextTrait() {
+                        if (currentTrait < traits.length) {
+                            const p = document.createElement('p');
+                            p.className = "border-l-4 border-blue-500 pl-4 bg-blue-50 py-2 rounded-r-lg min-h-[44px]";
+                            listContainer.appendChild(p);
+                            typeWriter(traits[currentTrait], p, 30, showNextTrait);
+                            currentTrait++;
+                        } else {
+                            setTimeout(() => {
+                                document.getElementById('btn-to-phase-2').classList.remove('hidden');
+                            }, 500);
+                        }
+                    }
+                    setTimeout(showNextTrait, 500);
+                }, 1500);
             }
             
             function processNextScan() {
@@ -710,11 +764,11 @@
         }
 
         let transparentSprites = {
-            'tabby': rawSpriteTabby,
-            'calico': rawSpriteCalico,
-            'british': rawSpriteBritish,
-            'siamese': rawSpriteSiamese,
-            'black': rawSpriteBlack,
+            'tabby': "url('assets/tabby_sprite.png')",
+            'calico': "url('assets/calico_sprite.png')",
+            'british': "url('assets/british_sprite.png')",
+            'siamese': "url('assets/siamese_sprite.png')",
+            'black': "url('assets/black_sprite.png')",
             'rabbit': rawSpriteRabbit,
             'bear': rawSpriteBear,
             'sphynx': rawSpriteSphynx,
@@ -746,11 +800,6 @@
             };
         }
 
-        processTransparent(rawSpriteTabby, 'tabby');
-        processTransparent(rawSpriteCalico, 'calico');
-        processTransparent(rawSpriteBritish, 'british');
-        processTransparent(rawSpriteSiamese, 'siamese');
-        processTransparent(rawSpriteBlack, 'black');
         processTransparent(rawSpriteRabbit, 'rabbit');
         processTransparent(rawSpriteBear, 'bear');
         processTransparent(rawSpriteSphynx, 'sphynx');
@@ -909,15 +958,27 @@
             stopWandering(index);
             catContainer.style.zIndex = '40'; // bring to front
 
-            // Walk to bowl
-            cat.style.backgroundPosition = '50% 66.66%'; // Face RIGHT
-            catContainer.style.transition = 'left 1.5s linear, top 1.5s linear';
-            catContainer.style.left = '78%';
-            catContainer.style.top = '45%';
+            // Walk to bowl orthogonally
+            let currentLeft = parseFloat(catContainer.style.left);
+            let currentTop = parseFloat(catContainer.style.top);
+            let targetLeft = 78;
+            let targetTop = 45;
+            
+            let deltaX = targetLeft - currentLeft;
+            let deltaY = targetTop - currentTop;
+            
+            cat.style.backgroundPosition = deltaX > 0 ? '50% 66.66%' : '50% 33.33%';
+            catContainer.style.transition = 'left 1s linear';
+            catContainer.style.left = targetLeft + '%';
             cat.classList.add('animate-walk');
             
             setTimeout(() => {
-                cat.classList.remove('animate-walk');
+                cat.style.backgroundPosition = deltaY > 0 ? '50% 0%' : '50% 100%';
+                catContainer.style.transition = 'top 1s linear';
+                catContainer.style.top = targetTop + '%';
+                
+                setTimeout(() => {
+                    cat.classList.remove('animate-walk');
                 SoundManager.scan();
                 scanner.classList.remove('hidden');
                 scanner.classList.add('animate-ping');
@@ -951,24 +1012,30 @@
                                     dialogue.classList.add('hidden');
                                     foodKibble.classList.add('hidden');
                                     
-                                    // Walk to random spot to avoid clustering
+                                    // Walk to random spot to avoid clustering orthogonally
                                     const escapeTop = 45 + Math.random() * 40;
                                     const escapeLeft = 20 + Math.random() * 40;
                                     
                                     let actualDelta = escapeLeft - 78;
-                                    cat.style.backgroundPosition = actualDelta > 0 ? '50% 66.66%' : '50% 33.33%';
+                                    let escapeDeltaY = escapeTop - 45;
                                     
-                                    catContainer.style.transition = 'left 2s linear, top 2s linear'; // 50% speed
+                                    cat.style.backgroundPosition = actualDelta > 0 ? '50% 66.66%' : '50% 33.33%';
+                                    catContainer.style.transition = 'left 1s linear';
                                     catContainer.style.left = escapeLeft + '%';
-                                    catContainer.style.top = escapeTop + '%';
                                     cat.classList.add('animate-walk');
                                     
                                     setTimeout(() => {
-                                        cat.classList.remove('animate-walk');
-                                        catContainer.style.zIndex = '30';
-                                        startWandering(catContainer, cat, index);
-                                        finishCycle();
-                                    }, 2000);
+                                        cat.style.backgroundPosition = escapeDeltaY > 0 ? '50% 0%' : '50% 100%';
+                                        catContainer.style.transition = 'top 1s linear';
+                                        catContainer.style.top = escapeTop + '%';
+                                        
+                                        setTimeout(() => {
+                                            cat.classList.remove('animate-walk');
+                                            catContainer.style.zIndex = '30';
+                                            startWandering(catContainer, cat, index);
+                                            finishCycle();
+                                        }, 1000);
+                                    }, 1000);
                                 }, 2500);
                             }, 1200);
                         }, 500);
@@ -1019,7 +1086,7 @@
             const grid = document.getElementById('data-grid');
             grid.innerHTML = '';
             
-            let displayCats = ['tabby', 'calico', 'british'];
+            let displayCats = ['tabby', 'calico', 'british', 'siamese', 'black'];
             
             if (state.hasRetrained) {
                 displayCats.push('sphynx');
@@ -1034,6 +1101,8 @@
                 if(type === 'tabby') typeName = 'Mèo Cam';
                 if(type === 'calico') typeName = 'Mèo Tam Thể';
                 if(type === 'british') typeName = 'Mèo Anh Lông Ngắn';
+                if(type === 'siamese') typeName = 'Mèo Xiêm';
+                if(type === 'black') typeName = 'Mèo Đen';
                 if(type === 'sphynx') typeName = 'Mèo Ai Cập';
                 
                 const item = document.createElement('div');
