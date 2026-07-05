@@ -159,7 +159,7 @@
                         <path d="M12 15l-1 2h2z" fill="#fff" stroke="none"/>
                     </svg>
                 </div>
-                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 mb-4 tracking-tight">Xây dựng máy cho mèo ăn tự động</h1>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 mb-4 tracking-tight">Lập trình máy tự động cho mèo ăn</h1>
                 <p class="text-lg md:text-xl text-slate-600 mb-8 font-medium">Trở thành kỹ sư AI để lập trình máy phát thức ăn tự động! Nhiệm vụ của bạn là huấn luyện một hệ thống trí tuệ nhân tạo để phân phát thức ăn tự động cho các bé mèo.</p>
                 <button onclick="goToScreen('training-screen')" class="btn-primary px-8 py-4 text-xl">Bắt đầu Huấn luyện</button>
             </div>
@@ -764,11 +764,11 @@
         }
 
         let transparentSprites = {
-            'tabby': "url('assets/tabby_sprite.png')",
-            'calico': "url('assets/calico_sprite.png')",
-            'british': "url('assets/british_sprite_trans.png')",
-            'siamese': "url('assets/siamese_sprite.png')",
-            'black': "url('assets/black_sprite.png')",
+            'tabby': `url('${rawSpriteTabby}')`,
+            'calico': `url('${rawSpriteCalico}')`,
+            'british': `url('${rawSpriteBritish}')`,
+            'siamese': `url('${rawSpriteSiamese}')`,
+            'black': `url('${rawSpriteBlack}')`,
             'rabbit': rawSpriteRabbit,
             'bear': rawSpriteBear,
             'sphynx': rawSpriteSphynx,
