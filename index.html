@@ -763,17 +763,7 @@
             setTimeout(processNextScan, 1000);
         }
 
-        let transparentSprites = {
-            'tabby': `url('${rawSpriteTabby}')`,
-            'calico': `url('${rawSpriteCalico}')`,
-            'british': `url('${rawSpriteBritish}')`,
-            'siamese': `url('${rawSpriteSiamese}')`,
-            'black': `url('${rawSpriteBlack}')`,
-            'rabbit': rawSpriteRabbit,
-            'bear': rawSpriteBear,
-            'sphynx': rawSpriteSphynx,
-            'dog': rawSpriteDog
-        };
+        let transparentSprites = {};
         
         function processTransparent(rawBase64, key) {
             const img = new Image();
@@ -800,21 +790,34 @@
             };
         }
 
+        processTransparent(rawSpriteTabby, 'tabby');
+        processTransparent(rawSpriteCalico, 'calico');
+        processTransparent(rawSpriteBritish, 'british');
+        processTransparent(rawSpriteSiamese, 'siamese');
+        processTransparent(rawSpriteBlack, 'black');
         processTransparent(rawSpriteRabbit, 'rabbit');
         processTransparent(rawSpriteBear, 'bear');
         processTransparent(rawSpriteSphynx, 'sphynx');
         processTransparent(rawSpriteDog, 'dog');
 
-        function getAnimal(type) {
+        function getAnimal(type, isFolder = false) {
             let filter = 'drop-shadow(0 10px 5px rgba(0,0,0,0.5))';
-            let spriteUrl = transparentSprites[type] || transparentSprites['tabby'];
+            let spriteUrl = transparentSprites[type] || `url('${rawSpriteTabby}')`;
             
             let extraStyle = '';
+            let bgPos = '50% 0%';
+            
             if (type === 'bear') {
-                extraStyle = 'margin-left: 18px;';
+                if (isFolder) {
+                    // In folder, don't use margin-left, use background-position to center
+                    bgPos = 'calc(50% - 18px) 0%';
+                } else {
+                    // On map, use margin to align collision box
+                    extraStyle = 'margin-left: 18px;';
+                }
             }
             
-            let bgStyle = `background-image: ${spriteUrl}; background-size: 300% 400%; background-position: 50% 0%; width: 128px; height: 128px; display: inline-block; image-rendering: pixelated; filter: ${filter}; ${extraStyle}`;
+            let bgStyle = `background-image: ${spriteUrl}; background-size: 300% 400%; background-position: ${bgPos}; width: 128px; height: 128px; display: inline-block; image-rendering: pixelated; filter: ${filter}; ${extraStyle}`;
             
             return `<div class="cat-sprite-inner" style="${bgStyle}"></div>`;
         }
@@ -834,7 +837,7 @@
                     fo.innerHTML = `
                         <div style="width: 100%; height: 100%; background-color: #ffffff; border: 2px solid #e5e7eb; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; pointer-events: none;">
                             <div style="transform: scale(0.65); transform-origin: center center; pointer-events: none; margin-top: -5px;">
-                                ${getAnimal(type)}
+                                ${getAnimal(type, true)}
                             </div>
                         </div>
                     `;
