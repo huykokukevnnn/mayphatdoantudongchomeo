@@ -95,6 +95,14 @@
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes walk-anim {
+            0% { background-position-x: 0%; }
+            25% { background-position-x: 50%; }
+            50% { background-position-x: 100%; }
+            75% { background-position-x: 50%; }
+            100% { background-position-x: 0%; }
+        }
+        .animate-walk { animation: walk-anim 0.6s step-end infinite; }
 
         .animate-walk-1 { animation: walk 0.8s infinite ease-in-out; transform-origin: top center; }
         .animate-walk-2 { animation: walk 0.8s infinite ease-in-out; animation-delay: 0.4s; transform-origin: top center; }
@@ -164,42 +172,38 @@
             
             <div class="flex items-start justify-between w-full max-w-[1200px] px-4">
                 <!-- Data Folders Container -->
-                <div id="data-folders-container" class="flex flex-wrap gap-4 w-[65%] justify-center z-10">
-                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-105" draggable="true" data-type="tabby" data-name="Mèo Mướp">
-                        <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#f97316" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#fb923c" stroke="#ea580c" stroke-width="2"/></svg>
-                        <span class="mt-2 font-semibold text-slate-700 bg-white px-3 py-1 text-sm rounded-full shadow-sm border border-slate-200">Mèo Mướp</span>
+                <div id="data-folders-container" class="grid grid-cols-3 gap-x-8 gap-y-12 w-[65%] justify-items-center z-10 pt-8">
+                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-110" draggable="true" data-type="tabby" data-name="Mèo Cam">
+                        <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md overflow-visible"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#f97316" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#fb923c" stroke="#ea580c" stroke-width="2"/></svg>
+                        <span class="mt-2 font-semibold text-slate-700 bg-white px-3 py-1 text-sm rounded-full shadow-sm border border-slate-200">Mèo Cam</span>
                     </div>
-                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-105" draggable="true" data-type="calico" data-name="Mèo Tam Thể">
-                        <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#f43f5e" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#fb7185" stroke="#e11d48" stroke-width="2"/></svg>
+                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-110" draggable="true" data-type="calico" data-name="Mèo Tam Thể">
+                        <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md overflow-visible"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#f43f5e" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#fb7185" stroke="#e11d48" stroke-width="2"/></svg>
                         <span class="mt-2 font-semibold text-slate-700 bg-white px-3 py-1 text-sm rounded-full shadow-sm border border-slate-200">Tam Thể</span>
                     </div>
-                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-105" draggable="true" data-type="british" data-name="Mèo Anh Lông Ngắn">
-                        <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#3b82f6" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#60a5fa" stroke="#2563eb" stroke-width="2"/></svg>
+                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-110" draggable="true" data-type="british" data-name="Mèo Anh Lông Ngắn">
+                        <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md overflow-visible"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#3b82f6" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#60a5fa" stroke="#2563eb" stroke-width="2"/></svg>
                         <span class="mt-2 font-semibold text-slate-700 bg-white px-3 py-1 text-sm rounded-full shadow-sm border border-slate-200">Mèo Anh Lông Ngắn</span>
                     </div>
-                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-105" draggable="true" data-type="siamese" data-name="Mèo Xiêm">
-                        <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#d97706" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#f59e0b" stroke="#b45309" stroke-width="2"/></svg>
+                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-110" draggable="true" data-type="siamese" data-name="Mèo Xiêm">
+                        <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md overflow-visible"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#d97706" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#f59e0b" stroke="#b45309" stroke-width="2"/></svg>
                         <span class="mt-2 font-semibold text-slate-700 bg-white px-3 py-1 text-sm rounded-full shadow-sm border border-slate-200">Mèo Xiêm</span>
                     </div>
-                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-105" draggable="true" data-type="black" data-name="Mèo Đen">
-                        <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#334155" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#475569" stroke="#1e293b" stroke-width="2"/></svg>
+                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-110" draggable="true" data-type="black" data-name="Mèo Đen">
+                        <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md overflow-visible"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#334155" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#475569" stroke="#1e293b" stroke-width="2"/></svg>
                         <span class="mt-2 font-semibold text-slate-700 bg-white px-3 py-1 text-sm rounded-full shadow-sm border border-slate-200">Mèo Đen</span>
                     </div>
-                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-105" draggable="true" data-type="dog" data-name="Chó Golden">
-                        <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#8b5cf6" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#a78bfa" stroke="#7c3aed" stroke-width="2"/></svg>
+                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-110" draggable="true" data-type="dog" data-name="Chó Golden">
+                        <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md overflow-visible"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#8b5cf6" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#a78bfa" stroke="#7c3aed" stroke-width="2"/></svg>
                         <span class="mt-2 font-semibold text-slate-700 bg-white px-3 py-1 text-sm rounded-full shadow-sm border border-slate-200">Chó Golden</span>
                     </div>
-                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-105" draggable="true" data-type="rabbit" data-name="Thỏ Trắng">
-                        <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#ec4899" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#f472b6" stroke="#db2777" stroke-width="2"/></svg>
+                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-110" draggable="true" data-type="rabbit" data-name="Thỏ Trắng">
+                        <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md overflow-visible"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#ec4899" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#f472b6" stroke="#db2777" stroke-width="2"/></svg>
                         <span class="mt-2 font-semibold text-slate-700 bg-white px-3 py-1 text-sm rounded-full shadow-sm border border-slate-200">Thỏ Trắng</span>
                     </div>
-                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-105" draggable="true" data-type="bear" data-name="Gấu Nâu">
-                        <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#84cc16" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#a3e635" stroke="#65a30d" stroke-width="2"/></svg>
+                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-110" draggable="true" data-type="bear" data-name="Gấu Nâu">
+                        <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md overflow-visible"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#84cc16" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#a3e635" stroke="#65a30d" stroke-width="2"/></svg>
                         <span class="mt-2 font-semibold text-slate-700 bg-white px-3 py-1 text-sm rounded-full shadow-sm border border-slate-200">Gấu Nâu</span>
-                    </div>
-                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-105" draggable="true" data-type="sphynx" data-name="Mèo Ai Cập">
-                        <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#14b8a6" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#2dd4bf" stroke="#0d9488" stroke-width="2"/></svg>
-                        <span class="mt-2 font-semibold text-slate-700 bg-white px-3 py-1 text-sm rounded-full shadow-sm border border-slate-200">Mèo Ai Cập</span>
                     </div>
                 </div>
 
@@ -207,10 +211,16 @@
                 <div class="flex flex-col items-center z-10 w-[30%]">
                     <div id="ai-machine" class="dropzone w-full flex flex-col items-center p-8 border-4 border-dashed border-slate-300 rounded-3xl bg-white/50 transition-all shadow-lg mb-6">
                         <svg width="150" height="150" viewBox="0 0 150 150">
-                            <rect x="15" y="15" width="120" height="120" rx="15" fill="#f8fafc" stroke="#cbd5e1" stroke-width="4"/>
-                            <rect x="35" y="35" width="80" height="40" rx="5" fill="#0f172a"/>
-                            <circle cx="75" cy="100" r="20" fill="#3b82f6" id="machine-eye"/>
-                            <text x="75" y="60" text-anchor="middle" font-family="Inter" font-weight="bold" font-size="14" fill="#38bdf8" id="machine-text">KÉO VÀO ĐÂY</text>
+                            <!-- Monitor Stand -->
+                            <rect x="65" y="110" width="20" height="20" fill="#cbd5e1" />
+                            <rect x="45" y="130" width="60" height="10" rx="3" fill="#94a3b8" />
+                            <!-- Monitor Frame -->
+                            <rect x="15" y="20" width="120" height="90" rx="8" fill="#334155" />
+                            <!-- Screen -->
+                            <rect x="20" y="25" width="110" height="80" rx="4" fill="#0f172a" />
+                            <!-- Scanning eye / data receiver -->
+                            <circle cx="75" cy="55" r="15" fill="#3b82f6" id="machine-eye"/>
+                            <text x="75" y="85" text-anchor="middle" font-family="Inter" font-weight="bold" font-size="12" fill="#38bdf8" id="machine-text">KÉO VÀO ĐÂY</text>
                         </svg>
                         <span class="mt-4 text-xl font-bold text-slate-700 text-center">Bộ Não AI</span>
                         <div id="dropped-items-count" class="text-slate-500 font-semibold mt-2">Đã thêm: 0 thư mục</div>
@@ -248,15 +258,15 @@
             <div id="game-viewport" class="relative w-full max-w-[1200px] aspect-[16/9] bg-black overflow-hidden border-8 border-slate-700 shadow-2xl rounded-xl" style="background-image: url('assets/pokemon_indoor_wide.png'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; image-rendering: pixelated;">
                 
                 <!-- Game Viewport Elements -->
-                <div id="rpg-scanner" class="absolute top-[38%] left-[81%] w-24 h-24 transform -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-blue-400 opacity-50 hidden z-20 shadow-[0_0_20px_#60a5fa]"></div>
+                <div id="rpg-scanner" class="absolute top-[38%] left-[78%] w-24 h-24 transform -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-blue-400 opacity-50 hidden z-20 shadow-[0_0_20px_#60a5fa]"></div>
                 
                 <!-- Food Stream (Falling) -->
-                <div id="food-stream" class="absolute top-[26%] left-[81%] w-4 h-16 transform -translate-x-1/2 hidden z-10 overflow-hidden">
+                <div id="food-stream" class="absolute top-[26%] left-[78%] w-4 h-16 transform -translate-x-1/2 hidden z-10 overflow-hidden">
                     <div class="w-full h-[200%] bg-gradient-to-b from-transparent via-amber-600 to-amber-900 animate-[fall-down_0.3s_linear_infinite]" style="background-size: 100% 50%;"></div>
                 </div>
 
                 <!-- Kibble inside the bowl -->
-                <div id="food-kibble" class="absolute top-[35%] left-[81%] w-10 h-10 transform -translate-x-1/2 -translate-y-1/2 hidden z-20">
+                <div id="food-kibble" class="absolute top-[35%] left-[78%] w-10 h-10 transform -translate-x-1/2 -translate-y-1/2 hidden z-20">
                     <div class="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-4 bg-amber-800 rounded-t-full border-t-2 border-amber-900 overflow-hidden shadow-lg">
                         <div class="w-1.5 h-1.5 bg-amber-700 rounded-full absolute top-1 left-1"></div>
                         <div class="w-1.5 h-1.5 bg-amber-900 rounded-full absolute top-1 right-1"></div>
@@ -391,7 +401,7 @@
             
             <!-- Feedback Pop-up Modal -->
             <div id="feedback-modal" class="hidden absolute inset-0 bg-slate-900/60 z-[100] flex items-center justify-center backdrop-blur-sm transition-opacity duration-300">
-                <div class="bg-white rounded-3xl p-8 max-w-lg w-full shadow-2xl border-2 border-indigo-100 animate-slide-in relative flex flex-col items-center">
+                <div class="bg-white rounded-3xl p-8 max-w-4xl w-full shadow-2xl border-2 border-indigo-100 animate-slide-in relative flex flex-col items-center">
                     <div id="quiz-feedback" class="w-full text-left font-medium text-lg leading-relaxed mb-6">
                         <!-- Feedback injected here -->
                     </div>
@@ -418,11 +428,96 @@
             <h3 class="text-2xl font-bold text-slate-800 mb-4" id="system-alert-title">Thông báo</h3>
             <p class="text-lg text-slate-600 font-medium mb-8" id="system-alert-text">Nội dung thông báo</p>
             <button id="system-alert-btn" onclick="closeSystemAlert()" class="btn-primary w-full py-3 text-lg">Đã hiểu</button>
-        </div>
-    </div>
-
     <!-- Scripts -->
     <script>
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const SoundManager = {
+            playTone: function(freq, type, duration, vol=0.1) {
+                if(audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            },
+            click: function() { this.playTone(600, 'sine', 0.1, 0.05); setTimeout(() => this.playTone(800, 'sine', 0.15, 0.05), 50); },
+            drop: function() { this.playTone(300, 'sine', 0.2, 0.1); },
+            scan: function() { this.playTone(1200 + Math.random()*200, 'square', 0.1, 0.02); },
+            success: function() { 
+                this.playTone(523.25, 'sine', 0.3, 0.05); 
+                setTimeout(() => this.playTone(659.25, 'sine', 0.3, 0.05), 100); 
+                setTimeout(() => this.playTone(783.99, 'sine', 0.5, 0.05), 200); 
+                setTimeout(() => this.playTone(1046.50, 'sine', 0.8, 0.05), 300); 
+            },
+            error: function() { this.playTone(200, 'sawtooth', 0.3, 0.05); setTimeout(() => this.playTone(180, 'sawtooth', 0.4, 0.05), 150); },
+            meow: function() {
+                if(audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.1);
+                osc.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.4);
+                gain.gain.setValueAtTime(0, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 0.05);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.4);
+            },
+            food: function() {
+                for(let i=0; i<4; i++) {
+                    setTimeout(() => this.playTone(700 + Math.random()*300, 'square', 0.05, 0.02), i*40);
+                }
+            },
+            startBGM: function() {
+                if(this.bgmInterval) return;
+                const notes = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33];
+                const playNote = () => {
+                    if(audioCtx.state === 'suspended') audioCtx.resume();
+                    const freq = notes[Math.floor(Math.random() * notes.length)];
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.value = freq;
+                    gain.gain.setValueAtTime(0, audioCtx.currentTime);
+                    gain.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 0.05);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 2);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 2);
+                    this.bgmTimeout = setTimeout(playNote, 600 + Math.random() * 800);
+                };
+                playNote();
+                
+                // Soft drone
+                const drone = audioCtx.createOscillator();
+                const droneGain = audioCtx.createGain();
+                drone.type = 'triangle';
+                drone.frequency.value = 130.81; // C3
+                droneGain.gain.setValueAtTime(0.015, audioCtx.currentTime);
+                drone.connect(droneGain);
+                droneGain.connect(audioCtx.destination);
+                drone.start();
+                
+                this.bgmInterval = true;
+            }
+        };
+
+        // Attach click sound globally to buttons
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('button') || e.target.closest('label')) {
+                SoundManager.click();
+            }
+        });
+
         const state = {
             currentScreen: 'intro-screen',
             operationQueue: ['tabby', 'calico', 'british', 'siamese', 'black', 'sphynx'],
@@ -436,6 +531,10 @@
         ];
 
         function goToScreen(screenId) {
+            if (screenId === 'training-screen') {
+                SoundManager.startBGM(); // Start BGM on first interaction
+            }
+            
             document.getElementById('twist-modal').classList.add('hidden');
             screens.forEach(id => {
                 const el = document.getElementById(id);
@@ -485,6 +584,7 @@
         machine.addEventListener('drop', (e) => {
             e.preventDefault();
             machine.classList.remove('drag-over', 'bg-blue-50');
+            SoundManager.drop();
             
             const type = e.dataTransfer.getData('text/plain');
             const name = e.dataTransfer.getData('text/name');
@@ -533,50 +633,74 @@
             const spriteDiv = document.getElementById('scanning-sprite');
             const laser = document.getElementById('scanning-laser');
             const resultOverlay = document.getElementById('scanning-result');
-            const resultIcon = document.getElementById('scanning-icon');
+            let resultIcon = document.getElementById('scanning-icon');
             const progressBar = document.getElementById('training-progress-bar');
             const logText = document.getElementById('scanning-log');
             const statusText = document.getElementById('scanning-status-text');
             
+            let isAutoLearning = false;
+            let autoLearnSequence = [
+                { type: 'british', name: 'Mèo Scottish', accepted: true },
+                { type: 'siamese', name: 'Mèo Ba Tư', accepted: true },
+                { type: 'calico', name: 'Mèo Munchkin', accepted: true },
+                { type: 'dog', name: 'Chó Golden', accepted: false },
+                { type: 'rabbit', name: 'Thỏ Trắng', accepted: false },
+                { type: 'bear', name: 'Gấu Nâu', accepted: false },
+                { type: 'sphynx', name: 'Mèo Ai Cập', accepted: false }
+            ];
+            
+            function finishTraining() {
+                SoundManager.success();
+                statusText.textContent = "Hoàn tất huấn luyện mô hình!";
+                statusText.className = "font-bold text-emerald-600 mb-4 text-xl";
+                logText.textContent = "Sẵn sàng hoạt động.";
+                document.getElementById('machine-text').textContent = 'HOẠT ĐỘNG';
+                document.getElementById('machine-text').setAttribute('fill', '#10b981');
+                document.getElementById('machine-eye').setAttribute('fill', '#10b981');
+                
+                setTimeout(() => {
+                    goToScreen('operation-screen');
+                }, 2000);
+            }
+            
             function processNextScan() {
-                if (currentIndex >= scanSequence.length) {
-                    statusText.textContent = "Hoàn tất huấn luyện mô hình!";
-                    statusText.className = "font-bold text-emerald-600 mb-4 text-xl";
-                    logText.textContent = "Sẵn sàng hoạt động.";
-                    document.getElementById('machine-text').textContent = 'HOẠT ĐỘNG';
-                    document.getElementById('machine-text').setAttribute('fill', '#10b981');
-                    document.getElementById('machine-eye').setAttribute('fill', '#10b981');
-                    
-                    setTimeout(() => {
-                        goToScreen('operation-screen');
-                    }, 2000);
+                let currentSequence = scanSequence;
+                
+                if (currentIndex >= currentSequence.length) {
+                    finishTraining();
                     return;
                 }
                 
-                const item = scanSequence[currentIndex];
+                const item = currentSequence[currentIndex];
                 
                 spriteDiv.innerHTML = getAnimal(item.type);
-                spriteDiv.firstElementChild.style.backgroundPosition = '50% 0%';
+                // Set background-position to face front (0% is back, 50% is side, 100% is front)
+                spriteDiv.firstElementChild.style.backgroundPosition = '50% 100%';
                 
                 spriteDiv.classList.remove('hidden');
                 laser.classList.remove('hidden');
                 resultOverlay.classList.add('hidden');
                 logText.textContent = `Đang trích xuất đặc trưng: ${item.name}...`;
+                SoundManager.scan();
                 
                 setTimeout(() => {
                     laser.classList.add('hidden');
                     resultOverlay.classList.remove('hidden');
                     
                     if (item.accepted) {
+                        SoundManager.success();
                         resultIcon.textContent = '✅';
                         logText.textContent = `[HỌC THÀNH CÔNG] Đã lưu mẫu ${item.name} vào dữ liệu Mèo.`;
                     } else {
+                        SoundManager.error();
                         resultIcon.textContent = '❌';
-                        logText.textContent = `[BỎ QUA] Lỗi: ${item.name} không khớp với định dạng chuẩn.`;
+                        logText.textContent = `[BỎ QUA / TỪ CHỐI] Lỗi: ${item.name} không khớp với định dạng chuẩn Mèo.`;
                     }
                     
                     currentIndex++;
-                    progressBar.style.width = `${(currentIndex / scanSequence.length) * 100}%`;
+                    if (!isAutoLearning) {
+                        progressBar.style.width = `${(currentIndex / currentSequence.length) * 100}%`;
+                    }
                     
                     setTimeout(processNextScan, 2000);
                 }, 1500);
@@ -613,7 +737,7 @@
                     let g = data[i+1];
                     let b = data[i+2];
                     
-                    if (g > 150 && r < 120 && b < 120) {
+                    if (g > 130 && r < 160 && b < 160) {
                         data[i+3] = 0; // Transparent
                     }
                 }
@@ -636,7 +760,12 @@
             let filter = 'drop-shadow(0 10px 5px rgba(0,0,0,0.5))';
             let spriteUrl = transparentSprites[type] || transparentSprites['tabby'];
             
-            let bgStyle = `background-image: ${spriteUrl}; background-size: 300% 400%; background-position: 50% 0%; width: 128px; height: 128px; display: inline-block; image-rendering: pixelated; filter: ${filter};`;
+            let extraStyle = '';
+            if (type === 'bear') {
+                extraStyle = 'margin-left: 18px;';
+            }
+            
+            let bgStyle = `background-image: ${spriteUrl}; background-size: 300% 400%; background-position: 50% 0%; width: 128px; height: 128px; display: inline-block; image-rendering: pixelated; filter: ${filter}; ${extraStyle}`;
             
             return `<div class="cat-sprite-inner" style="${bgStyle}"></div>`;
         }
@@ -648,15 +777,21 @@
                 if (rect) {
                     const svg = folder.querySelector('svg');
                     const fo = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
-                    fo.setAttribute('x', '26');
-                    fo.setAttribute('y', '16');
-                    fo.setAttribute('width', '38');
-                    fo.setAttribute('height', '38');
-                    fo.setAttribute('transform', 'rotate(-10 45 35)');
+                    fo.setAttribute('x', '15');
+                    fo.setAttribute('y', '-25');
+                    fo.setAttribute('width', '90');
+                    fo.setAttribute('height', '100');
                     
-                    fo.innerHTML = `<div style="width: 100%; height: 100%; overflow: hidden; display: flex; align-items: center; justify-content: center; pointer-events: none;"><div style="transform: scale(0.35); transform-origin: center; pointer-events: none;">${getAnimal(type)}</div></div>`;
+                    fo.innerHTML = `
+                        <div style="width: 100%; height: 100%; background-color: #ffffff; border: 2px solid #e5e7eb; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; pointer-events: none;">
+                            <div style="transform: scale(1); transform-origin: center center; pointer-events: none; margin-top: -15px;">
+                                ${getAnimal(type)}
+                            </div>
+                        </div>
+                    `;
                     
                     svg.insertBefore(fo, rect.nextSibling);
+                    rect.style.display = 'none'; // hide the old tiny paper
                 }
             });
         }, 500);
@@ -709,7 +844,6 @@
                 ];
                 
                 const move = directions[Math.floor(Math.random() * directions.length)];
-                sprite.style.backgroundPosition = `50% ${move.row}%`;
                 
                 if (Math.random() > 0.4) {
                     let currentVal = parseFloat(container.style[move.axis]);
@@ -723,8 +857,23 @@
                         if (newVal > 65) newVal = 65; // keep them away from dispenser
                     }
                     
+                    let actualDelta = newVal - currentVal;
+                    if (move.axis === 'top') {
+                        sprite.style.backgroundPosition = actualDelta > 0 ? '50% 0%' : '50% 100%';
+                    } else {
+                        sprite.style.backgroundPosition = actualDelta > 0 ? '50% 66.66%' : '50% 33.33%';
+                    }
+                    if (actualDelta === 0) {
+                        sprite.style.backgroundPosition = `50% ${move.row}%`;
+                    }
+                    
                     container.style.transition = `${move.axis} 1s linear`;
                     container.style[move.axis] = newVal + '%';
+                    
+                    sprite.classList.add('animate-walk');
+                    setTimeout(() => sprite.classList.remove('animate-walk'), 1000);
+                } else {
+                    sprite.classList.remove('animate-walk');
                 }
             }, 2500 + Math.random() * 1000);
             
@@ -763,10 +912,13 @@
             // Walk to bowl
             cat.style.backgroundPosition = '50% 66.66%'; // Face RIGHT
             catContainer.style.transition = 'left 1.5s linear, top 1.5s linear';
-            catContainer.style.left = '81%';
+            catContainer.style.left = '78%';
             catContainer.style.top = '45%';
+            cat.classList.add('animate-walk');
             
             setTimeout(() => {
+                cat.classList.remove('animate-walk');
+                SoundManager.scan();
                 scanner.classList.remove('hidden');
                 scanner.classList.add('animate-ping');
                 cat.style.backgroundPosition = '50% 100%'; // Face UP
@@ -785,7 +937,7 @@
                         const viewport = document.getElementById('game-viewport');
                         
                         setTimeout(() => {
-                            
+                            SoundManager.food();
                             foodStream.classList.remove('hidden');
                             
                             setTimeout(() => {
@@ -793,13 +945,30 @@
                                 foodStream.classList.add('hidden');
                                 foodKibble.classList.remove('hidden');
                                 dialogText.textContent = "Hệ thống: Xin mời dùng bữa!";
+                                SoundManager.meow();
                                 
                                 setTimeout(() => {
                                     dialogue.classList.add('hidden');
                                     foodKibble.classList.add('hidden');
-                                    catContainer.style.zIndex = '30';
-                                    startWandering(catContainer, cat, index);
-                                    finishCycle();
+                                    
+                                    // Walk to random spot to avoid clustering
+                                    const escapeTop = 45 + Math.random() * 40;
+                                    const escapeLeft = 20 + Math.random() * 40;
+                                    
+                                    let actualDelta = escapeLeft - 78;
+                                    cat.style.backgroundPosition = actualDelta > 0 ? '50% 66.66%' : '50% 33.33%';
+                                    
+                                    catContainer.style.transition = 'left 2s linear, top 2s linear'; // 50% speed
+                                    catContainer.style.left = escapeLeft + '%';
+                                    catContainer.style.top = escapeTop + '%';
+                                    cat.classList.add('animate-walk');
+                                    
+                                    setTimeout(() => {
+                                        cat.classList.remove('animate-walk');
+                                        catContainer.style.zIndex = '30';
+                                        startWandering(catContainer, cat, index);
+                                        finishCycle();
+                                    }, 2000);
                                 }, 2500);
                             }, 1200);
                         }, 500);
@@ -812,8 +981,10 @@
                             cat.style.backgroundPosition = '50% 33.33%'; // Face LEFT
                             catContainer.style.transition = 'left 1s linear';
                             catContainer.style.left = '60%';
+                            cat.classList.add('animate-walk');
                             
                             setTimeout(() => {
+                                cat.classList.remove('animate-walk');
                                 catContainer.style.zIndex = '30';
                                 startWandering(catContainer, cat, index);
                                 finishCycle(true);
@@ -860,7 +1031,7 @@
                 const type = displayCats[randomIndex];
                 
                 let typeName = '';
-                if(type === 'tabby') typeName = 'Mèo Mướp';
+                if(type === 'tabby') typeName = 'Mèo Cam';
                 if(type === 'calico') typeName = 'Mèo Tam Thể';
                 if(type === 'british') typeName = 'Mèo Anh Lông Ngắn';
                 if(type === 'sphynx') typeName = 'Mèo Ai Cập';
@@ -975,7 +1146,7 @@
             
             if (selected.value === 'C') {
                 feedback.className = 'w-full p-6 rounded-xl text-left text-lg bg-emerald-50 text-emerald-800 border-2 border-emerald-300';
-                feedback.innerHTML = '<span class="font-bold text-emerald-600 text-xl block mb-2">✨ Chính xác! Chúc mừng bạn đã tìm ra nguyên nhân cốt lõi.</span> Trong Trí tuệ Nhân tạo, hiện tượng này gọi là <b>Thiên kiến dữ liệu (Data Bias)</b>.<br><br>Ban đầu, vì <i>chính bạn</i> đã lựa chọn và quyết định KHÔNG dạy cho AI biết hình ảnh của Mèo Ai Cập (có thể vì bạn thấy nó không giống mèo bình thường), nên AI đã tự động "học" một quy luật sai lệch: <i>"Đã là mèo thì phải có lông"</i>.<br><br>Do đó, khi đối mặt với một chú mèo không lông ngoài thực tế, hệ thống tự động đánh giá nó là "Lỗi" hoặc "Quái vật" và từ chối phát thức ăn.<br><br>Bài học rút ra là: <b>AI không tự nhiên thông minh, nó chỉ phản ánh chính những dữ liệu mà con người cung cấp cho nó. Nếu chúng ta cung cấp dữ liệu thiên kiến hoặc thiếu sót, AI cũng sẽ cư xử thiên kiến!</b>';
+                feedback.innerHTML = '<span class="font-bold text-emerald-600 text-xl block mb-2">✨ Chính xác! Chúc mừng bạn đã tìm ra nguyên nhân cốt lõi.</span> Trong Trí tuệ Nhân tạo, hiện tượng này gọi là <b>Thiên kiến dữ liệu (Data Bias)</b>.<br><br>Ban đầu, vì chính bạn đã lựa chọn dạy cho AI học dữ liệu của những loài mèo có nhiều lông nên khi tự học dữ liệu AI đã tự động "học" một quy luật sai lệch: "Đã là mèo thì phải có lông".<br><br>Do đó, khi phân tích chú mèo không lông ngoài thực tế, hệ thống tự động đánh giá nó là "Lỗi" và từ chối phát thức ăn.<br><br>Bài học rút ra là: <b>AI không tự nhiên thông minh, nó chỉ phản ánh chính những dữ liệu mà con người cung cấp cho nó. Nếu chúng ta cung cấp dữ liệu thiên kiến hoặc thiếu sót, AI cũng sẽ cư xử thiên kiến!</b>';
                 btnReplay.classList.remove('hidden');
                 btnClose.classList.add('hidden');
                 document.querySelector('button[onclick="checkAnswer()"]').parentElement.classList.add('hidden');
