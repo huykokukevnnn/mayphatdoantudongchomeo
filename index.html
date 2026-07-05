@@ -201,10 +201,6 @@
                         <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md overflow-visible"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#ec4899" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#f472b6" stroke="#db2777" stroke-width="2"/></svg>
                         <span class="mt-2 font-semibold text-slate-700 bg-white px-3 py-1 text-sm rounded-full shadow-sm border border-slate-200">Thỏ Trắng</span>
                     </div>
-                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-110" draggable="true" data-type="bear" data-name="Gấu Nâu">
-                        <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md overflow-visible"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#84cc16" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#a3e635" stroke="#65a30d" stroke-width="2"/></svg>
-                        <span class="mt-2 font-semibold text-slate-700 bg-white px-3 py-1 text-sm rounded-full shadow-sm border border-slate-200">Gấu Nâu</span>
-                    </div>
                 </div>
 
                 <!-- AI Machine Dropzone -->
@@ -264,24 +260,11 @@
         <!-- 3. Operation Screen (Pokemon RPG Indoor) -->
         <div id="operation-screen" class="hidden absolute inset-0 flex flex-col items-center justify-center z-30" style="background-color: #1e293b;">
             <!-- Resized Game Container -->
-            <div id="game-viewport" class="relative w-full max-w-[1200px] aspect-[16/9] bg-black overflow-hidden border-8 border-slate-700 shadow-2xl rounded-xl" style="background-image: url('assets/pokemon_indoor_wide.png'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; image-rendering: pixelated;">
+            <div id="game-viewport" class="relative w-full max-w-[1200px] aspect-[16/9] bg-black overflow-hidden border-8 border-slate-700 shadow-2xl rounded-xl" style="background-image: url('assets/pokemon_indoor_wide_empty.png'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; image-rendering: pixelated;">
                 
                 <!-- Game Viewport Elements -->
                 <div id="rpg-scanner" class="absolute top-[38%] left-[78%] w-24 h-24 transform -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-blue-400 opacity-50 hidden z-20 shadow-[0_0_20px_#60a5fa]"></div>
                 
-                <!-- Food Stream (Falling) -->
-                <div id="food-stream" class="absolute top-[25.5%] left-[76.2%] w-4 h-16 transform -translate-x-1/2 hidden z-10 overflow-hidden rounded-b-full">
-                    <div class="w-full h-[200%] bg-amber-700 animate-stream" style="background-image: repeating-linear-gradient(to bottom, transparent, transparent 10px, #92400e 10px, #92400e 20px);"></div>
-                </div>
-
-                <!-- Kibble inside the bowl -->
-                <div id="food-kibble" class="absolute top-[33.5%] left-[76.2%] w-10 h-10 transform -translate-x-1/2 -translate-y-1/2 hidden z-20">
-                    <div class="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-4 bg-amber-800 rounded-t-full border-t-2 border-amber-900 overflow-hidden shadow-lg animate-drop">
-                        <div class="w-1.5 h-1.5 bg-amber-700 rounded-full absolute top-1 left-1"></div>
-                        <div class="w-1.5 h-1.5 bg-amber-900 rounded-full absolute top-1 right-1"></div>
-                        <div class="w-1.5 h-1.5 bg-amber-600 rounded-full absolute bottom-0 left-3"></div>
-                    </div>
-                </div>
                 <!-- Cats will be injected here dynamically -->
 
                 <!-- Dialogue Box (Pokemon Style) -->
@@ -436,6 +419,8 @@
             <h3 class="text-2xl font-bold text-slate-800 mb-4" id="system-alert-title">Thông báo</h3>
             <p class="text-lg text-slate-600 font-medium mb-8" id="system-alert-text">Nội dung thông báo</p>
             <button id="system-alert-btn" onclick="closeSystemAlert()" class="btn-primary w-full py-3 text-lg">Đã hiểu</button>
+        </div>
+    </div>
     <!-- Scripts -->
     <script>
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -653,7 +638,6 @@
                 { type: 'calico', name: 'Mèo Munchkin', accepted: true },
                 { type: 'dog', name: 'Chó Golden', accepted: false },
                 { type: 'rabbit', name: 'Thỏ Trắng', accepted: false },
-                { type: 'bear', name: 'Gấu Nâu', accepted: false },
                 { type: 'sphynx', name: 'Mèo Ai Cập', accepted: false }
             ];
             
@@ -996,26 +980,22 @@
                     const isRecognizedAsCat = (animalType !== 'sphynx' || state.hasRetrained);
                     
                     dialogue.classList.remove('hidden');
+                    const viewport = document.getElementById('game-viewport');
                     if (isRecognizedAsCat) {
                         dialogText.textContent = "Hệ thống: Nhận diện thành công! Đang kích hoạt trạm thức ăn...";
                         
-                        const foodStream = document.getElementById('food-stream');
-                        const viewport = document.getElementById('game-viewport');
-                        
                         setTimeout(() => {
                             SoundManager.food();
-                            foodStream.classList.remove('hidden');
+                            viewport.style.backgroundImage = "url('assets/pokemon_indoor_wide_lit.png')";
                             
                             setTimeout(() => {
-                                
-                                foodStream.classList.add('hidden');
-                                foodKibble.classList.remove('hidden');
+                                viewport.style.backgroundImage = "url('assets/pokemon_indoor_wide.png')";
                                 dialogText.textContent = "Hệ thống: Xin mời dùng bữa!";
                                 SoundManager.meow();
                                 
                                 setTimeout(() => {
                                     dialogue.classList.add('hidden');
-                                    foodKibble.classList.add('hidden');
+                                    viewport.style.backgroundImage = "url('assets/pokemon_indoor_wide_empty.png')";
                                     
                                     // Walk to random spot to avoid clustering orthogonally
                                     const escapeTop = 45 + Math.random() * 40;
