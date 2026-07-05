@@ -1,0 +1,1 @@
+using System; using System.Drawing; class Program { static void Main() { string[] files = { "original_tabby.png", "original_calico.png", "original_british.png", "original_siamese.png" }; foreach(var f in files) { using(Bitmap bmp = new Bitmap(f)) { Color c = bmp.GetPixel(0,0); Console.WriteLine($"{f}: {bmp.Width}x{bmp.Height}, BG: {c.R},{c.G},{c.B}"); } } } }  

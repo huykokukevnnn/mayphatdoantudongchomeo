@@ -762,8 +762,17 @@
             setTimeout(processNextScan, 1000);
         }
 
-        let transparentSprites = {};
-        
+        let transparentSprites = {
+            'tabby': `url('${rawSpriteTabby}')`,
+            'calico': `url('${rawSpriteCalico}')`,
+            'british': `url('${rawSpriteBritish}')`,
+            'siamese': `url('${rawSpriteSiamese}')`,
+            'black': `url('${rawSpriteBlack}')`,
+            'rabbit': `url('${rawSpriteRabbit}')`,
+            'bear': `url('${rawSpriteBear}')`,
+            'sphynx': `url('${rawSpriteSphynx}')`
+        };
+
         function processTransparent(rawBase64, key) {
             const img = new Image();
             img.src = rawBase64;
@@ -779,7 +788,6 @@
                     let r = data[i];
                     let g = data[i+1];
                     let b = data[i+2];
-                    
                     if (g > 130 && r < 160 && b < 160) {
                         data[i+3] = 0; // Transparent
                     }
@@ -788,15 +796,6 @@
                 transparentSprites[key] = `url('${canvas.toDataURL()}')`;
             };
         }
-
-        processTransparent(rawSpriteTabby, 'tabby');
-        processTransparent(rawSpriteCalico, 'calico');
-        processTransparent(rawSpriteBritish, 'british');
-        processTransparent(rawSpriteSiamese, 'siamese');
-        processTransparent(rawSpriteBlack, 'black');
-        processTransparent(rawSpriteRabbit, 'rabbit');
-        processTransparent(rawSpriteBear, 'bear');
-        processTransparent(rawSpriteSphynx, 'sphynx');
         processTransparent(rawSpriteDog, 'dog');
 
         function getAnimal(type, isFolder = false) {
@@ -911,12 +910,10 @@
                     let actualDelta = newVal - currentVal;
                     if (move.axis === 'top') {
                         sprite.style.backgroundPosition = actualDelta > 0 ? '50% 0%' : '50% 100%';
-                        sprite.style.transform = 'scaleX(1)';
                     } else {
-                        // All horizontal movement uses row 3 (Right) and flips for Left to avoid AI inconsistent rows
-                        sprite.style.backgroundPosition = '50% 66.66%';
-                        sprite.style.transform = actualDelta > 0 ? 'scaleX(1)' : 'scaleX(-1)';
+                        sprite.style.backgroundPosition = actualDelta > 0 ? '50% 66.66%' : '50% 33.33%';
                     }
+                    sprite.style.transform = 'scaleX(1)';
                     if (actualDelta === 0) {
                         sprite.style.backgroundPosition = `50% ${move.row}%`;
                     }
@@ -970,11 +967,10 @@
             let targetTop = 45;
             
             let deltaX = targetLeft - currentLeft;
-            let deltaY = targetTop - currentTop;
             
-            // All horizontal movement uses row 3 (Right) and flips for Left
-            cat.style.backgroundPosition = '50% 66.66%';
-            cat.style.transform = deltaX > 0 ? 'scaleX(1)' : 'scaleX(-1)';
+            // Move X first, then Y
+            cat.style.backgroundPosition = deltaX > 0 ? '50% 66.66%' : '50% 33.33%';
+            cat.style.transform = 'scaleX(1)';
             
             catContainer.style.transition = 'left 1s linear';
             catContainer.style.left = targetLeft + '%';
@@ -982,7 +978,7 @@
             
             setTimeout(() => {
                 cat.style.transform = 'scaleX(1)';
-                cat.style.backgroundPosition = deltaY > 0 ? '50% 0%' : '50% 100%';
+                cat.style.backgroundPosition = targetTop - currentTop > 0 ? '50% 0%' : '50% 100%';
                 catContainer.style.transition = 'top 1s linear';
                 catContainer.style.top = targetTop + '%';
                 
@@ -1028,8 +1024,8 @@
                                     let actualDelta = escapeLeft - 78;
                                     let escapeDeltaY = escapeTop - 45;
                                     
-                                    cat.style.backgroundPosition = '50% 66.66%';
-                                    cat.style.transform = actualDelta > 0 ? 'scaleX(1)' : 'scaleX(-1)';
+                                    cat.style.backgroundPosition = actualDelta > 0 ? '50% 66.66%' : '50% 33.33%';
+                                    cat.style.transform = 'scaleX(1)';
                                     
                                     catContainer.style.transition = 'left 1s linear';
                                     catContainer.style.left = escapeLeft + '%';
@@ -1057,8 +1053,8 @@
                         
                         setTimeout(() => {
                             dialogue.classList.add('hidden');
-                            cat.style.backgroundPosition = '50% 66.66%'; 
-                            cat.style.transform = 'scaleX(-1)'; // Face LEFT
+                            cat.style.backgroundPosition = '50% 33.33%'; // Face LEFT
+                            cat.style.transform = 'scaleX(1)';
                             catContainer.style.transition = 'left 1s linear';
                             catContainer.style.left = '60%';
                             cat.classList.add('animate-walk');
