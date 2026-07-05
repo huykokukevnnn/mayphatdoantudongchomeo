@@ -766,7 +766,7 @@
         let transparentSprites = {
             'tabby': "url('assets/tabby_sprite.png')",
             'calico': "url('assets/calico_sprite.png')",
-            'british': "url('assets/british_sprite.png')",
+            'british': "url('assets/british_sprite_trans.png')",
             'siamese': "url('assets/siamese_sprite.png')",
             'black': "url('assets/black_sprite.png')",
             'rabbit': rawSpriteRabbit,
@@ -833,7 +833,7 @@
                     
                     fo.innerHTML = `
                         <div style="width: 100%; height: 100%; background-color: #ffffff; border: 2px solid #e5e7eb; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; pointer-events: none;">
-                            <div style="transform: scale(1); transform-origin: center center; pointer-events: none; margin-top: -15px;">
+                            <div style="transform: scale(0.65); transform-origin: center center; pointer-events: none; margin-top: -5px;">
                                 ${getAnimal(type)}
                             </div>
                         </div>
@@ -909,8 +909,11 @@
                     let actualDelta = newVal - currentVal;
                     if (move.axis === 'top') {
                         sprite.style.backgroundPosition = actualDelta > 0 ? '50% 0%' : '50% 100%';
+                        sprite.style.transform = 'scaleX(1)';
                     } else {
-                        sprite.style.backgroundPosition = actualDelta > 0 ? '50% 66.66%' : '50% 33.33%';
+                        // All horizontal movement uses row 3 (Right) and flips for Left to avoid AI inconsistent rows
+                        sprite.style.backgroundPosition = '50% 66.66%';
+                        sprite.style.transform = actualDelta > 0 ? 'scaleX(1)' : 'scaleX(-1)';
                     }
                     if (actualDelta === 0) {
                         sprite.style.backgroundPosition = `50% ${move.row}%`;
@@ -967,12 +970,16 @@
             let deltaX = targetLeft - currentLeft;
             let deltaY = targetTop - currentTop;
             
-            cat.style.backgroundPosition = deltaX > 0 ? '50% 66.66%' : '50% 33.33%';
+            // All horizontal movement uses row 3 (Right) and flips for Left
+            cat.style.backgroundPosition = '50% 66.66%';
+            cat.style.transform = deltaX > 0 ? 'scaleX(1)' : 'scaleX(-1)';
+            
             catContainer.style.transition = 'left 1s linear';
             catContainer.style.left = targetLeft + '%';
             cat.classList.add('animate-walk');
             
             setTimeout(() => {
+                cat.style.transform = 'scaleX(1)';
                 cat.style.backgroundPosition = deltaY > 0 ? '50% 0%' : '50% 100%';
                 catContainer.style.transition = 'top 1s linear';
                 catContainer.style.top = targetTop + '%';
@@ -1019,12 +1026,15 @@
                                     let actualDelta = escapeLeft - 78;
                                     let escapeDeltaY = escapeTop - 45;
                                     
-                                    cat.style.backgroundPosition = actualDelta > 0 ? '50% 66.66%' : '50% 33.33%';
+                                    cat.style.backgroundPosition = '50% 66.66%';
+                                    cat.style.transform = actualDelta > 0 ? 'scaleX(1)' : 'scaleX(-1)';
+                                    
                                     catContainer.style.transition = 'left 1s linear';
                                     catContainer.style.left = escapeLeft + '%';
                                     cat.classList.add('animate-walk');
                                     
                                     setTimeout(() => {
+                                        cat.style.transform = 'scaleX(1)';
                                         cat.style.backgroundPosition = escapeDeltaY > 0 ? '50% 0%' : '50% 100%';
                                         catContainer.style.transition = 'top 1s linear';
                                         catContainer.style.top = escapeTop + '%';
@@ -1045,7 +1055,8 @@
                         
                         setTimeout(() => {
                             dialogue.classList.add('hidden');
-                            cat.style.backgroundPosition = '50% 33.33%'; // Face LEFT
+                            cat.style.backgroundPosition = '50% 66.66%'; 
+                            cat.style.transform = 'scaleX(-1)'; // Face LEFT
                             catContainer.style.transition = 'left 1s linear';
                             catContainer.style.left = '60%';
                             cat.classList.add('animate-walk');
