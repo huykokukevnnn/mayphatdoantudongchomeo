@@ -202,7 +202,6 @@
                         <span class="mt-2 font-semibold text-slate-700 bg-white px-3 py-1 text-sm rounded-full shadow-sm border border-slate-200">Thỏ Trắng</span>
                     </div>
                     </div>
-                </div>
 
                 <!-- AI Machine Dropzone -->
                 <div class="flex flex-col items-center z-10 w-[30%]">
@@ -778,7 +777,51 @@
                 canvas.width = img.width;
                 canvas.height = img.height;
                 const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0);
+                
+                if (key === 'sphynx') {
+                    // Frame by frame recentering because the AI generated sprite sheet is unaligned
+                    const frameW = img.width / 3;
+                    const frameH = img.height / 4;
+                    
+                    const tempCanvas = document.createElement('canvas');
+                    tempCanvas.width = img.width;
+                    tempCanvas.height = img.height;
+                    const tctx = tempCanvas.getContext('2d');
+                    tctx.drawImage(img, 0, 0);
+                    
+                    for (let r = 0; r < 4; r++) {
+                        for (let c = 0; c < 3; c++) {
+                            const sx = c * frameW;
+                            const sy = r * frameH;
+                            const imgData = tctx.getImageData(sx, sy, frameW, frameH);
+                            const data = imgData.data;
+                            
+                            let minX = frameW, maxX = 0;
+                            for (let y = 0; y < frameH; y++) {
+                                for (let x = 0; x < frameW; x++) {
+                                    const i = (y * frameW + x) * 4;
+                                    let red = data[i], green = data[i+1], blue = data[i+2];
+                                    let isGreen = green > 130 && red < 160 && blue < 160;
+                                    if (!isGreen && data[i+3] > 10) {
+                                        if (x < minX) minX = x;
+                                        if (x > maxX) maxX = x;
+                                    }
+                                }
+                            }
+                            
+                            let shiftX = 0;
+                            if (minX <= maxX) {
+                                let centerX = (minX + maxX) / 2;
+                                shiftX = (frameW / 2) - centerX;
+                            }
+                            // Draw this frame into the main canvas with shiftX
+                            ctx.drawImage(tempCanvas, sx, sy, frameW, frameH, sx + shiftX, sy, frameW, frameH);
+                        }
+                    }
+                } else {
+                    ctx.drawImage(img, 0, 0);
+                }
+                
                 const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 const data = imgData.data;
                 for (let i = 0; i < data.length; i += 4) {
@@ -787,6 +830,9 @@
                     let b = data[i+2];
                     if (g > 130 && r < 160 && b < 160) {
                         data[i+3] = 0; // Transparent
+                        data[i] = 0;
+                        data[i+1] = 0;
+                        data[i+2] = 0;
                     }
                 }
                 ctx.putImageData(imgData, 0, 0);
@@ -794,6 +840,7 @@
             };
         }
         processTransparent(rawSpriteDog, 'dog');
+        processTransparent(rawSpriteSphynx, 'sphynx');
 
         function getAnimal(type, isFolder = false) {
             let filter = 'drop-shadow(0 10px 5px rgba(0,0,0,0.5))';
