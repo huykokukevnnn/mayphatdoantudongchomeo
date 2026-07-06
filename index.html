@@ -963,14 +963,23 @@
                         if (newVal > 65) newVal = 65; // keep them away from dispenser
                     }
                     
+                    // Config object for cats that have their left/right or up/down sprites reversed in the sprite sheet
+                    const reversedCats = {
+                        // Add cat types here if they walk backwards, e.g.:
+                        // 'tabby': true,
+                        // 'calico': true
+                    };
+                    const isReversed = reversedCats[state.operationQueue[index]];
+
                     let actualDelta = newVal - currentVal;
                     if (move.axis === 'top') {
-                        sprite.style.backgroundPosition = actualDelta > 0 ? '50% 100%' : '50% 0%';
+                        let rowDown = isReversed ? '100%' : '0%';
+                        let rowUp = isReversed ? '0%' : '100%';
+                        sprite.style.backgroundPosition = actualDelta > 0 ? `50% ${rowDown}` : `50% ${rowUp}`;
                     } else {
-                        // Fixed: When actualDelta > 0 (moving right), use 33.33%. 
-                        // When actualDelta < 0 (moving left), use 66.66%.
-                        // If it's still backwards, we might need to swap them back or swap top/bottom.
-                        sprite.style.backgroundPosition = actualDelta > 0 ? '50% 33.33%' : '50% 66.66%';
+                        let rowRight = isReversed ? '33.33%' : '66.66%';
+                        let rowLeft = isReversed ? '66.66%' : '33.33%';
+                        sprite.style.backgroundPosition = actualDelta > 0 ? `50% ${rowRight}` : `50% ${rowLeft}`;
                     }
                     sprite.style.transform = 'scaleX(1)';
                     if (actualDelta === 0) {
