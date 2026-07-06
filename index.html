@@ -855,16 +855,19 @@
         processTransparent(rawSpriteSphynx, 'sphynx');
 
         function getAnimalBgPos(type, axis, delta) {
-            const reversedCats = {
+            // Nhóm A (Row1=Right, Row2=Left): tabby, calico, siamese, black
+            // Nhóm B (Row1=Left, Row2=Right): british, sphynx, dog
+            // Up/Down giống nhau cho TẤT CẢ: Row0=Down(0%), Row3=Up(100%)
+            const reversedLeftRight = {
                 'tabby': true,
                 'siamese': true,
-                'black': true
+                'black': true,
+                'calico': true
             };
-            const isReversed = reversedCats[type];
+            const isReversed = reversedLeftRight[type];
             if (axis === 'top') {
-                let rowDown = isReversed ? '100%' : '0%';
-                let rowUp = isReversed ? '0%' : '100%';
-                return delta > 0 ? `50% ${rowDown}` : `50% ${rowUp}`;
+                // Row0=Down(0%), Row3=Up(100%) — giống cho mọi sprite
+                return delta > 0 ? '50% 0%' : '50% 100%';
             } else {
                 let rowRight = isReversed ? '33.33%' : '66.66%';
                 let rowLeft = isReversed ? '66.66%' : '33.33%';
@@ -992,6 +995,7 @@
                     sprite.classList.add('animate-walk');
                     setTimeout(() => sprite.classList.remove('animate-walk'), 1000);
                 } else {
+                    sprite.style.backgroundPosition = '50% 0%'; // Idle: nhìn xuống (Row0=Down cho tất cả sprite)
                     sprite.classList.remove('animate-walk');
                 }
             }, 2500 + Math.random() * 1000);
