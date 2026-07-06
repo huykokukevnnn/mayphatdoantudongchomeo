@@ -854,6 +854,24 @@
         processTransparent(rawSpriteDog, 'dog');
         processTransparent(rawSpriteSphynx, 'sphynx');
 
+        function getAnimalBgPos(type, axis, delta) {
+            const reversedCats = {
+                'tabby': true,
+                'siamese': true,
+                'black': true
+            };
+            const isReversed = reversedCats[type];
+            if (axis === 'top') {
+                let rowDown = isReversed ? '100%' : '0%';
+                let rowUp = isReversed ? '0%' : '100%';
+                return delta > 0 ? `50% ${rowDown}` : `50% ${rowUp}`;
+            } else {
+                let rowRight = isReversed ? '33.33%' : '66.66%';
+                let rowLeft = isReversed ? '66.66%' : '33.33%';
+                return delta > 0 ? `50% ${rowRight}` : `50% ${rowLeft}`;
+            }
+        }
+
         function getAnimal(type, isFolder = false) {
             let filter = 'drop-shadow(0 10px 5px rgba(0,0,0,0.5))';
             let spriteUrl = transparentSprites[type] || `url('${rawSpriteTabby}')`;
@@ -963,28 +981,10 @@
                         if (newVal > 65) newVal = 65; // keep them away from dispenser
                     }
                     
-                    // Config object for cats that have their left/right or up/down sprites reversed in the sprite sheet
-                    const reversedCats = {
-                        'tabby': true,
-                        'siamese': true,
-                        'black': true
-                    };
-                    const isReversed = reversedCats[state.operationQueue[index]];
-
+                    const type = state.operationQueue[index];
                     let actualDelta = newVal - currentVal;
-                    if (move.axis === 'top') {
-                        let rowDown = isReversed ? '100%' : '0%';
-                        let rowUp = isReversed ? '0%' : '100%';
-                        sprite.style.backgroundPosition = actualDelta > 0 ? `50% ${rowDown}` : `50% ${rowUp}`;
-                    } else {
-                        let rowRight = isReversed ? '33.33%' : '66.66%';
-                        let rowLeft = isReversed ? '66.66%' : '33.33%';
-                        sprite.style.backgroundPosition = actualDelta > 0 ? `50% ${rowRight}` : `50% ${rowLeft}`;
-                    }
+                    sprite.style.backgroundPosition = getAnimalBgPos(type, move.axis, move.delta);
                     sprite.style.transform = 'scaleX(1)';
-                    if (actualDelta === 0) {
-                        sprite.style.backgroundPosition = `50% ${move.row}%`;
-                    }
                     
                     container.style.transition = `${move.axis} 1s linear`;
                     container.style[move.axis] = newVal + '%';
@@ -1037,7 +1037,7 @@
             let deltaX = targetLeft - currentLeft;
             
             // Move X first, then Y
-            cat.style.backgroundPosition = deltaX > 0 ? '50% 66.66%' : '50% 33.33%';
+            cat.style.backgroundPosition = getAnimalBgPos(animalType, 'left', deltaX);
             cat.style.transform = 'scaleX(1)';
             
             catContainer.style.transition = 'left 1s linear';
@@ -1046,7 +1046,7 @@
             
             setTimeout(() => {
                 cat.style.transform = 'scaleX(1)';
-                cat.style.backgroundPosition = targetTop - currentTop > 0 ? '50% 0%' : '50% 100%';
+                cat.style.backgroundPosition = getAnimalBgPos(animalType, 'top', targetTop - currentTop);
                 catContainer.style.transition = 'top 1s linear';
                 catContainer.style.top = targetTop + '%';
                 
@@ -1055,7 +1055,7 @@
                 SoundManager.scan();
                 scanner.classList.remove('hidden');
                 scanner.classList.add('animate-ping');
-                cat.style.backgroundPosition = '50% 100%'; // Face UP
+                cat.style.backgroundPosition = getAnimalBgPos(animalType, 'top', -1); // Face UP
                 
                 setTimeout(() => {
                     scanner.classList.remove('animate-ping');
@@ -1092,7 +1092,7 @@
                                     let actualDelta = escapeLeft - 78;
                                     let escapeDeltaY = escapeTop - 45;
                                     
-                                    cat.style.backgroundPosition = actualDelta > 0 ? '50% 66.66%' : '50% 33.33%';
+                                    cat.style.backgroundPosition = getAnimalBgPos(animalType, 'left', actualDelta);
                                     cat.style.transform = 'scaleX(1)';
                                     
                                     catContainer.style.transition = 'left 1s linear';
@@ -1101,7 +1101,7 @@
                                     
                                     setTimeout(() => {
                                         cat.style.transform = 'scaleX(1)';
-                                        cat.style.backgroundPosition = escapeDeltaY > 0 ? '50% 0%' : '50% 100%';
+                                        cat.style.backgroundPosition = getAnimalBgPos(animalType, 'top', escapeDeltaY);
                                         catContainer.style.transition = 'top 1s linear';
                                         catContainer.style.top = escapeTop + '%';
                                         
@@ -1121,7 +1121,7 @@
                         
                         setTimeout(() => {
                             dialogue.classList.add('hidden');
-                            cat.style.backgroundPosition = '50% 33.33%'; // Face LEFT
+                            cat.style.backgroundPosition = getAnimalBgPos(animalType, 'left', -1); // Face LEFT
                             cat.style.transform = 'scaleX(1)';
                             catContainer.style.transition = 'left 1s linear';
                             catContainer.style.left = '60%';
