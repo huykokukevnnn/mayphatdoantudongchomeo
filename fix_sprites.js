@@ -75,7 +75,7 @@ async function processSprites() {
     console.log('Black done');
 
     // 4. Calico
-    img = await Jimp.read('original_calico.png');
+    img = await Jimp.read('original_calico_tinted.png');
     img = await makeTransparent(img);
     newSprites.calico = await img.getBase64('image/png');
     console.log('Calico done');
