@@ -143,29 +143,19 @@
         }
     </style>
 </head>
-<body class="bg-slate-100 flex items-center justify-center h-screen w-screen m-0 overflow-hidden font-['Inter']">
+<body class="bg-slate-100 text-slate-800 font-sans h-screen w-screen overflow-hidden select-none">
+
+    <!-- DEBUG JUMP MENU -->
+    <div style="position: fixed; top: 10px; right: 10px; z-index: 9999; background: white; padding: 10px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <b class="text-xs">DEBUG JUMP</b><br>
+        <button onclick="goToScreen('intro-screen')" class="text-xs bg-slate-200 px-2 py-1 rounded m-1 hover:bg-slate-300">Intro</button>
+        <button onclick="goToScreen('training-screen')" class="text-xs bg-slate-200 px-2 py-1 rounded m-1 hover:bg-slate-300">Training</button>
+        <button onclick="goToScreen('operation-screen')" class="text-xs bg-slate-200 px-2 py-1 rounded m-1 hover:bg-slate-300">Operation</button>
+        <button onclick="goToScreen('debugging-screen')" class="text-xs bg-slate-200 px-2 py-1 rounded m-1 hover:bg-slate-300">Debugging</button>
+    </div>
 
     <!-- Main App Container -->
     <div id="app-container" class="relative w-full h-full bg-white overflow-hidden bg-gradient-to-br from-indigo-50 to-blue-50">
-
-        <!-- Dev Menu (Temporary) -->
-        <div id="dev-menu" class="absolute top-4 right-4 z-[9999]">
-            <div class="relative group">
-                <button class="bg-slate-800 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg flex items-center gap-2 text-sm transition-colors">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                    Dev Skip Option
-                </button>
-                <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 border border-slate-100 overflow-hidden">
-                    <button onclick="skipToPhase('intro')" class="block w-full text-left px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 border-b border-slate-100 font-medium">1. Intro</button>
-                    <button onclick="skipToPhase('setup')" class="block w-full text-left px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 border-b border-slate-100 font-medium">2. Setup (Kéo thả)</button>
-                    <button onclick="skipToPhase('operation')" class="block w-full text-left px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 border-b border-slate-100 font-medium flex justify-between items-center">
-                        3. Test Mèo
-                        <span class="text-xs bg-indigo-100 text-indigo-700 py-1 px-2 rounded-full">Test!</span>
-                    </button>
-                    <button onclick="skipToPhase('troubleshoot')" class="block w-full text-left px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 font-medium">4. Sửa lỗi</button>
-                </div>
-            </div>
-        </div>
 
         <!-- 1. Intro Screen -->
         <div id="intro-screen" class="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-8 z-50 transition-opacity duration-500">
@@ -192,17 +182,17 @@
             <div class="flex items-start justify-between w-full max-w-[1200px] px-4">
                 <!-- Data Folders Container -->
                 <div id="data-folders-container" class="grid grid-cols-3 gap-x-8 gap-y-12 w-[65%] justify-items-center z-10 pt-8">
-                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-110" draggable="true" data-type="tabby" data-name="Mèo Cam">
+                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-110" draggable="true" data-type="tabby" data-name="Mèo Mướp">
                         <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md overflow-visible"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#f97316" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#fb923c" stroke="#ea580c" stroke-width="2"/></svg>
-                        <span class="mt-2 font-semibold text-slate-700 bg-white px-3 py-1 text-sm rounded-full shadow-sm border border-slate-200">Mèo Cam</span>
+                        <span class="mt-2 font-semibold text-slate-700 bg-white px-3 py-1 text-sm rounded-full shadow-sm border border-slate-200">Mèo Mướp</span>
                     </div>
                     <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-110" draggable="true" data-type="calico" data-name="Mèo Tam Thể">
                         <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md overflow-visible"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#f43f5e" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#fb7185" stroke="#e11d48" stroke-width="2"/></svg>
                         <span class="mt-2 font-semibold text-slate-700 bg-white px-3 py-1 text-sm rounded-full shadow-sm border border-slate-200">Tam Thể</span>
                     </div>
-                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-110" draggable="true" data-type="british" data-name="Mèo Anh Lông Ngắn">
+                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-110" draggable="true" data-type="persian" data-name="Mèo Ba Tư">
                         <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md overflow-visible"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#3b82f6" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#60a5fa" stroke="#2563eb" stroke-width="2"/></svg>
-                        <span class="mt-2 font-semibold text-slate-700 bg-white px-3 py-1 text-sm rounded-full shadow-sm border border-slate-200">Mèo Anh Lông Ngắn</span>
+                        <span class="mt-2 font-semibold text-slate-700 bg-white px-3 py-1 text-sm rounded-full shadow-sm border border-slate-200">Mèo Ba Tư</span>
                     </div>
                     <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-110" draggable="true" data-type="siamese" data-name="Mèo Xiêm">
                         <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md overflow-visible"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#d97706" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#f59e0b" stroke="#b45309" stroke-width="2"/></svg>
@@ -211,14 +201,6 @@
                     <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-110" draggable="true" data-type="black" data-name="Mèo Đen">
                         <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md overflow-visible"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#334155" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#475569" stroke="#1e293b" stroke-width="2"/></svg>
                         <span class="mt-2 font-semibold text-slate-700 bg-white px-3 py-1 text-sm rounded-full shadow-sm border border-slate-200">Mèo Đen</span>
-                    </div>
-                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-110" draggable="true" data-type="dog" data-name="Chó Golden">
-                        <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md overflow-visible"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#8b5cf6" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#a78bfa" stroke="#7c3aed" stroke-width="2"/></svg>
-                        <span class="mt-2 font-semibold text-slate-700 bg-white px-3 py-1 text-sm rounded-full shadow-sm border border-slate-200">Chó Golden</span>
-                    </div>
-                    <div class="data-folder draggable flex flex-col items-center transition-transform hover:scale-110" draggable="true" data-type="rabbit" data-name="Thỏ Trắng">
-                        <svg width="80" height="80" viewBox="0 0 120 120" class="drop-shadow-md overflow-visible"><path d="M 10 30 Q 10 20 20 20 L 40 20 Q 50 20 55 30 L 110 30 Q 120 30 120 40 L 120 100 Q 120 110 110 110 L 20 110 Q 10 110 10 100 Z" fill="#ec4899" /><rect x="25" y="15" width="40" height="40" fill="#fff" transform="rotate(-10 45 35)" stroke="#e5e7eb" stroke-width="2"/><path d="M 10 50 Q 10 40 20 40 L 110 40 Q 120 40 120 50 L 115 105 Q 115 110 105 110 L 15 110 Q 10 110 10 105 Z" fill="#f472b6" stroke="#db2777" stroke-width="2"/></svg>
-                        <span class="mt-2 font-semibold text-slate-700 bg-white px-3 py-1 text-sm rounded-full shadow-sm border border-slate-200">Thỏ Trắng</span>
                     </div>
                     </div>
 
@@ -543,7 +525,7 @@
 
         const state = {
             currentScreen: 'intro-screen',
-            operationQueue: ['tabby', 'calico', 'british', 'siamese', 'black', 'sphynx'],
+            operationQueue: ['tabby', 'calico', 'persian', 'siamese', 'black', 'sphynx'],
             currentAnimalIndex: 0,
             hasRetrained: false
         };
@@ -575,24 +557,6 @@
                 startOperationPhase();
             } else if (screenId === 'debugging-screen') {
                 renderDataGrid();
-            }
-        }
-
-        // Dev tool helper to jump phases
-        function skipToPhase(phase) {
-            SoundManager.click();
-            if (phase === 'intro') {
-                goToScreen('intro-screen');
-            } else if (phase === 'setup') {
-                // Reset UI to start of setup
-                document.getElementById('scanning-ui-container').classList.add('hidden');
-                document.getElementById('data-folders-container').parentElement.classList.remove('hidden');
-                goToScreen('training-screen');
-            } else if (phase === 'operation') {
-                goToScreen('operation-screen');
-            } else if (phase === 'troubleshoot') {
-                goToScreen('debugging-screen');
-                setTimeout(startTroubleshooter, 500);
             }
         }
 
@@ -637,7 +601,7 @@
                     draggedFolders.push({
                         type: type,
                         name: name,
-                        accepted: (type === 'tabby' || type === 'calico' || type === 'british' || type === 'siamese' || type === 'black')
+                        accepted: (type === 'tabby' || type === 'calico' || type === 'persian' || type === 'siamese' || type === 'black')
                     });
                     
                     document.getElementById('dropped-items-count').textContent = `Đã thêm: ${draggedFolders.length} thư mục`;
@@ -650,7 +614,7 @@
         function startScanningAnimation() {
             if (draggedFolders.length === 0) return;
             
-            const requiredCats = ['tabby', 'calico', 'british', 'siamese', 'black'];
+            const requiredCats = ['tabby', 'calico', 'persian', 'siamese', 'black'];
             const missingCats = requiredCats.filter(req => !draggedFolders.some(f => f.type === req));
             
             if (missingCats.length > 0) {
@@ -798,137 +762,25 @@
         let transparentSprites = {
             'tabby': `url('${rawSpriteTabby}')`,
             'calico': `url('${rawSpriteCalico}')`,
-            'british': `url('${rawSpriteBritish}')`,
+            'persian': `url('${rawSpritePersian}')`,
             'siamese': `url('${rawSpriteSiamese}')`,
             'black': `url('${rawSpriteBlack}')`,
-            'rabbit': `url('${rawSpriteRabbit}')`,
-            'bear': `url('${rawSpriteBear}')`,
             'sphynx': `url('${rawSpriteSphynx}')`
         };
 
-        function processTransparent(rawBase64, key) {
-            const img = new Image();
-            img.src = rawBase64;
-            img.onload = () => {
-                const canvas = document.createElement('canvas');
-                canvas.width = img.width;
-                canvas.height = img.height;
-                const ctx = canvas.getContext('2d');
-                
-                if (key === 'sphynx') {
-                    // Frame by frame recentering because the AI generated sprite sheet is unaligned
-                    const frameW = img.width / 3;
-                    const frameH = img.height / 4;
-                    
-                    const tempCanvas = document.createElement('canvas');
-                    tempCanvas.width = img.width;
-                    tempCanvas.height = img.height;
-                    const tctx = tempCanvas.getContext('2d');
-                    tctx.drawImage(img, 0, 0);
-                    
-                    // Remove green background FIRST to prevent overlapping frames from erasing each other
-                    const tImgData = tctx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
-                    const tData = tImgData.data;
-                    for (let i = 0; i < tData.length; i += 4) {
-                        let r = tData[i], g = tData[i+1], b = tData[i+2];
-                        if (g > 130 && r < 160 && b < 160) {
-                            tData[i+3] = 0;
-                            tData[i] = 0;
-                            tData[i+1] = 0;
-                            tData[i+2] = 0;
-                        }
-                    }
-                    tctx.putImageData(tImgData, 0, 0);
-                    
-                    for (let r = 0; r < 4; r++) {
-                        for (let c = 0; c < 3; c++) {
-                            const sx = c * frameW;
-                            const sy = r * frameH;
-                            const imgData = tctx.getImageData(sx, sy, frameW, frameH);
-                            const data = imgData.data;
-                            
-                            let minX = frameW, maxX = 0;
-                            for (let y = 0; y < frameH; y++) {
-                                for (let x = 0; x < frameW; x++) {
-                                    const i = (y * frameW + x) * 4;
-                                    // Check alpha to find bounds
-                                    if (data[i+3] > 10) {
-                                        if (x < minX) minX = x;
-                                        if (x > maxX) maxX = x;
-                                    }
-                                }
-                            }
-                            
-                            let shiftX = 0;
-                            if (minX <= maxX) {
-                                let centerX = (minX + maxX) / 2;
-                                shiftX = (frameW / 2) - centerX;
-                            }
-                            ctx.drawImage(tempCanvas, sx, sy, frameW, frameH, sx + shiftX, sy, frameW, frameH);
-                        }
-                    }
-                } else {
-                    ctx.drawImage(img, 0, 0);
-                }
-                
-                const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                const data = imgData.data;
-                for (let i = 0; i < data.length; i += 4) {
-                    let r = data[i];
-                    let g = data[i+1];
-                    let b = data[i+2];
-                    if (g > 130 && r < 160 && b < 160) {
-                        data[i+3] = 0; // Transparent
-                        data[i] = 0;
-                        data[i+1] = 0;
-                        data[i+2] = 0;
-                    }
-                }
-                ctx.putImageData(imgData, 0, 0);
-                transparentSprites[key] = `url('${canvas.toDataURL()}')`;
-            };
-        }
-        processTransparent(rawSpriteDog, 'dog');
-        processTransparent(rawSpriteSphynx, 'sphynx');
-
         function getAnimalBgPos(type, axis, delta) {
-            // Nhóm A (Row1=Right, Row2=Left): tabby, calico, siamese, black
-            // Nhóm B (Row1=Left, Row2=Right): british, sphynx, dog
-            // Up/Down giống nhau cho TẤT CẢ: Row0=Down(0%), Row3=Up(100%)
-            const reversedLeftRight = {
-                'tabby': true,
-                'siamese': true,
-                'black': true
-            };
-            const isReversed = reversedLeftRight[type];
             if (axis === 'top') {
-                // Row0=Down(0%), Row3=Up(100%) — giống cho mọi sprite
                 return delta > 0 ? '50% 0%' : '50% 100%';
             } else {
-                let rowRight = isReversed ? '33.33%' : '66.66%';
-                let rowLeft = isReversed ? '66.66%' : '33.33%';
-                return delta > 0 ? `50% ${rowRight}` : `50% ${rowLeft}`;
+                return delta > 0 ? '50% 66.66%' : '50% 33.33%';
             }
         }
 
         function getAnimal(type, isFolder = false) {
             let filter = 'drop-shadow(0 10px 5px rgba(0,0,0,0.5))';
             let spriteUrl = transparentSprites[type] || `url('${rawSpriteTabby}')`;
-            
-            let extraStyle = '';
             let bgPos = '50% 0%';
-            
-            if (type === 'bear') {
-                if (isFolder) {
-                    // In folder, don't use margin-left, use background-position to center
-                    bgPos = 'calc(50% - 18px) 0%';
-                } else {
-                    // On map, use margin to align collision box
-                    extraStyle = 'margin-left: 18px;';
-                }
-            }
-            
-            let bgStyle = `background-image: ${spriteUrl}; background-size: 300% 400%; background-position: ${bgPos}; width: 128px; height: 128px; display: inline-block; image-rendering: pixelated; filter: ${filter}; ${extraStyle}`;
+            let bgStyle = `background-image: ${spriteUrl}; background-size: 300% 400%; background-position: ${bgPos}; width: 128px; height: 128px; display: inline-block; image-rendering: pixelated; filter: ${filter};`;
             
             return `<div class="cat-sprite-inner" style="${bgStyle}"></div>`;
         }
@@ -1204,7 +1056,7 @@
             const grid = document.getElementById('data-grid');
             grid.innerHTML = '';
             
-            let displayCats = ['tabby', 'calico', 'british', 'siamese', 'black'];
+            let displayCats = ['tabby', 'calico', 'persian', 'siamese', 'black'];
             
             if (state.hasRetrained) {
                 displayCats.push('sphynx');
@@ -1216,9 +1068,9 @@
                 const type = displayCats[randomIndex];
                 
                 let typeName = '';
-                if(type === 'tabby') typeName = 'Mèo Cam';
+                if(type === 'tabby') typeName = 'Mèo Mướp';
                 if(type === 'calico') typeName = 'Mèo Tam Thể';
-                if(type === 'british') typeName = 'Mèo Anh Lông Ngắn';
+                if(type === 'persian') typeName = 'Mèo Ba Tư';
                 if(type === 'siamese') typeName = 'Mèo Xiêm';
                 if(type === 'black') typeName = 'Mèo Đen';
                 if(type === 'sphynx') typeName = 'Mèo Ai Cập';
